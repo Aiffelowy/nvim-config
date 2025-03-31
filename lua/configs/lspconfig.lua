@@ -5,7 +5,7 @@ local lspconfig = require "lspconfig"
 local util = require "lspconfig/util"
 
 -- EXAMPLE
-local servers = { "clangd", "gopls", "tsserver", "pyright" }
+local servers = { "gopls", "tsserver", "pyright", "nil_ls" }
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- lsps with default config
@@ -21,13 +21,21 @@ lspconfig.cssls.setup {
   on_attach = nvlsp.on_attach,
   on_init = nvlsp.on_init,
   capabilities = nvlsp.capabilities,
-  cmd = { "css-languageserver", "--stdio" }
+--  cmd = { "css-languageserver", "--stdio" }
 }
 
 lspconfig.html.setup {
   on_attach = nvlsp.on_attach,
   on_init = nvlsp.on_init,
   capabilities = nvlsp.capabilities,
-  cmd = { "html-languageserver", "--stdio" }
+--  cmd = { "html-languageserver", "--stdio" }
 }
 
+lspconfig.clangd.setup {
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
+  capabilities = nvlsp.capabilities,
+  init_options = {
+    fallbackFlags = {'-std=c++20'}
+  },
+}
